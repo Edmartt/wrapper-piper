@@ -1,0 +1,11 @@
+export FLASK_APP=./run.py
+export FLASK_DEBUG=True
+export FLASK_CONFIG=development
+export REDIS_HOST=redis host
+export REDIS_PORT=redis port
+export REDIS_PASSWORD=redis password
+export PG_DATABASE=postgres database name
+export PG_USER=postgres user
+export PG_HOST=postgres host
+export PG_PASSWORD=postgres password
+export PG_PORT=postgres port
