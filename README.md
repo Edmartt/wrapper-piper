@@ -1,9 +1,9 @@
 # WRAPPER PIPER
 
-This microservice is in charge of, through an endpoint, receiving a list of ids of locations previously added with the locstorager service, sending this list of ids to an input queue, searching the locations corresponding to this list of ids, extracting their latitude and longitude to calculate the distance of these locations using the Euclidean distance formula.
+This microservice is in charge of, through an endpoint, receiving a list of ids of locations previously added with the [locstorager service](https://github.com/Edmartt/locstorager), sending this list of ids to an input queue, searching the locations corresponding to this list of ids, extracting their latitude and longitude to calculate the distance of these locations using the Euclidean distance formula.
 
 
-The idea behind this project is to fulfill some specific requirements that consist in calculating the distance with the euclidean formula, for this, two microservices are requested, one with the purpose of saving the locations with name, latitude and longitude, returning an id, (locstorager)[] and another, (this one) to send a list of ids that calculate the distance between the two points sent.
+The idea behind this project is to fulfill some specific requirements that consist in calculating the distance with the euclidean formula, for this, two microservices are requested, one with the purpose of saving the locations with name, latitude and longitude, returning an id, [locstorager service](https://github.com/Edmartt/locstorager) and another, (this one) to send a list of ids that calculate the distance between the two points sent.
 
 My approach was based on using a vertical slice architecture because of the very specific requirements and the ease of maintaining a feature in my opinion.
 
@@ -150,7 +150,7 @@ curl -i -H "Content-Type: application/json" -d '{"ids":["896a3a26-61ea-4973-944f
 
 ##### Note
 
-Remember that you'll get those ids from the locstorager service
+Remember that you'll get those ids from the [locstorager service](https://github.com/Edmartt/locstorager)
 
 A success response will look like this:
 
