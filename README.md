@@ -137,6 +137,11 @@ If we try to send requests to this service when is running alone with docker, we
 docker-compose up
 ```
 
+
+#### Note
+
+the wrapper-piper service will be forwarded to the port 5700, this can be changed in the docker-compose file
+
 This will deploy the service for saving locations, this service, a redis server, a postgres server and a worker for the process.
 
 
