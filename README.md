@@ -62,6 +62,111 @@ I have left one package out of the main code structure, which is the database ac
 
 
 
+API Documentation
+-----------------------
+
+### Locstorager
+
+#### SAVE LOCATIONS
+
+Returns the ID of the location saved.
+
+* **URI** 
+
+  /api/v1/locations
+
+* **Methods:**
+  
+  `POST`
+  
+* **Body**
+  * **Data params**
+    * name: string
+    * latitude: float
+    * longitude: float
+
+  example:
+      
+  * {"name":"<location-name>", "latitude":5.6, "longitude":8.9}
+
+* **Success Response:**
+
+  * **Code:** 200 <br />
+    **Content:** `{"location_id": "384a1f7a-466f-444d-b9f5-c372efd8c644"}`
+
+* **Error Response:**
+  
+  * **Code:** 404 NOT FOUND <br />
+    **Content:** `"response": "location not found"`
+
+
+### Get Locations:
+
+Return all existant locations in the database.
+
+* **URL** 
+
+  /api/v1/locations
+
+* **Methods:**
+  
+  `GET`
+
+* **Success Response:**
+
+  * **Code:** 200 <br />
+    **Content:** `{
+    "locations": [
+		{
+			"id": "522bbd28-9118-4c8d-9fa1-effddbf5aacf",
+			"latitude": 12.3467,
+			"longitude": 9.12678,
+			"name": "elm street"
+		},
+		{
+			"id": "5d39b607-8d83-4806-ad7f-0eaf55a5d3dd",
+			"latitude": 12.3467,
+			"longitude": 9.12678,
+			"name": "st mary avenue"
+		}]
+}`
+
+**Get Location**
+----
+  Returns a json with the requested location.
+
+* **URI**
+
+  /api/v1/locations/:location_id
+
+* **Method:**
+
+  `GET`
+  
+*  **URL Params**
+
+   **Required:**
+ 
+   `id=[UUID]`
+
+
+* **Success Response:**
+
+  * **Code:** 200 <br />
+    **Content:** `{ "location": {
+		"id": "522bbd28-9118-4c8d-9fa1-effddbf5aacf",
+		"latitude": 12.3467,
+		"longitude": 9.12678,
+		"name": "elm street"
+	} }`
+ 
+* **Error Response:**
+
+  * **Code:** 404 NOT FOUND <br />
+    **Content:** `{ "response": "location not found" }`
+
+
+
 ### Running
 
 1. Clone the repo
