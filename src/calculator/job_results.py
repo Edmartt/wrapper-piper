@@ -15,6 +15,11 @@ queue = Queue('distances', connection=redis_conn)
 def get_job_result(job_id: str):
     try:
         job = Job.fetch(job_id, connection=queue.connection)
+        logging.warning(
+                str({
+                    'job log': job
+                    })
+                )
         if job.is_finished:
             return job.result
         return None
