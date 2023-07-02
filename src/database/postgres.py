@@ -3,7 +3,6 @@ import os
 import traceback
 import psycopg2
 from psycopg2.extras import RealDictCursor
-from flask import g
 
 from src.database.database_interface import IDatabaseConnection
 
