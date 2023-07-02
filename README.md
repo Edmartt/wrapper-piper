@@ -275,7 +275,12 @@ Returns the ID of the location saved.
 * **Error Response:**
   
   * **Code:** 404 NOT FOUND <br />
-    **Content:** `"response": "ids does not exists"`
+    **Content:** `{"response": "ids not found in database"}`
+
+    Or
+
+    **Code:** 400 BAD REQUEST<br />
+    **Content:** `{"response": "some of the ids does not exists"}`
 
 
 
