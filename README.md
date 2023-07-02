@@ -62,6 +62,83 @@ I have left one package out of the main code structure, which is the database ac
 
 
 
+### Running
+
+1. Clone the repo
+
+```
+git clone https://github.com/Edmartt/wrapper-piper.git
+```
+
+2. Browse into the project folder
+
+```
+cd wrapper-piper/
+```
+
+
+### Development Version with Flask
+
+1. Create a virtual environment
+
+```
+python3 -m venv <virtual environment name>
+```
+
+2. Activate virtual environment
+
+```
+source env/bin/activate
+```
+
+3. Install dependencies
+
+```
+pip3 install -r requirements
+```
+
+4. Run
+
+```
+flask run -p <port>
+```
+
+#### Note
+
+We need to run with custom ports because this is the microservice that process the ids stored
+by another service that we'll have running in a default port (or maybe a custom one)
+
+### Running with Docker
+
+1. Pull the image from Dockerhub
+
+```
+docker pull edmartt/wrapper-piper
+```
+
+2. Create a container
+
+```
+docker run --rm -p <host-port:docker-port> --env-file .env edmartt/wrapper-piper
+```
+
+##### Note
+
+If we try to send requests to this service when is running alone with docker, we'll get an error because we don't have a database with the records for processing
+
+
+
+### Deploying all the services with Docker Compose
+
+1. set a .env file following the env.example
+2. Run the following command
+
+```
+docker-compose up
+```
+
+
+
 API Documentation
 -----------------------
 
@@ -164,83 +241,6 @@ Return all existant locations in the database.
 
   * **Code:** 404 NOT FOUND <br />
     **Content:** `{ "response": "location not found" }`
-
-
-
-### Running
-
-1. Clone the repo
-
-```
-git clone https://github.com/Edmartt/wrapper-piper.git
-```
-
-2. Browse into the project folder
-
-```
-cd wrapper-piper/
-```
-
-
-### Development Version with Flask
-
-1. Create a virtual environment
-
-```
-python3 -m venv <virtual environment name>
-```
-
-2. Activate virtual environment
-
-```
-source env/bin/activate
-```
-
-3. Install dependencies
-
-```
-pip3 install -r requirements
-```
-
-4. Run
-
-```
-flask run -p <port>
-```
-
-#### Note
-
-We need to run with custom ports because this is the microservice that process the ids stored
-by another service that we'll have running in a default port (or maybe a custom one)
-
-### Running with Docker
-
-1. Pull the image from Dockerhub
-
-```
-docker pull edmartt/wrapper-piper
-```
-
-2. Create a container
-
-```
-docker run --rm -p <host-port:docker-port> --env-file .env edmartt/wrapper-piper
-```
-
-##### Note
-
-If we try to send requests to this service when is running alone with docker, we'll get an error because we don't have a database with the records for processing
-
-
-
-### Deploying all the services with Docker Compose
-
-1. set a .env file following the env.example
-2. Run the following command
-
-```
-docker-compose up
-```
 
 
 #### Note
