@@ -243,6 +243,43 @@ Return all existant locations in the database.
     **Content:** `{ "response": "location not found" }`
 
 
+
+## Wrapper-Piper Service
+
+
+#### Send Locations IDS
+
+Returns the ID of the location saved.
+
+* **URI** 
+
+  /api/v1/locations/ids
+
+* **Methods:**
+  
+  `POST`
+  
+* **Body**
+  * **Data params**
+    * ids: array[string]
+
+  example:
+      
+  * `{"ids":["522bbd28-9118-4c8d-9fa1-effddbf5aacf", "896a3a26-61ea-4973-944f-31bf29cbf87a"]}`
+
+* **Success Response:**
+
+  * **Code:** 200 <br />
+    **Content:** `{ "response": { "JOB ID": "cefb8958-f8e3-4558-a3ca-2fdf36ee684a", "message": "ids in the inbound queue"} }`
+
+* **Error Response:**
+  
+  * **Code:** 404 NOT FOUND <br />
+    **Content:** `"response": "ids does not exists"`
+
+
+
+
 #### Note
 
 the wrapper-piper service will be forwarded to the port 5700, this can be changed in the docker-compose file
