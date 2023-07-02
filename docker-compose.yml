@@ -55,9 +55,7 @@ services:
       - wrapper
 
   worker:
-    build:
-      context: "/home/edmartt/worker"
-      dockerfile: Dockerfile
+    image: "edmartt/worker-wrapper"
 
     restart: always
 
