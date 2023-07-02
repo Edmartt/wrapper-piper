@@ -2,6 +2,8 @@ FROM python:3.11.4-alpine3.18 as builder
 
 WORKDIR /app
 
+RUN python3 -m venv /app/venv
+
 ENV PATH="/app/venv/bin:$PATH"
 
 COPY requirements.txt .
@@ -16,7 +18,7 @@ RUN apk del build-deps
 COPY . .
 
 #second stage for building image with just necessary dependencies
-FROM python:3.11.4-alpine
+FROM python:3.11.4-alpine3.18
 
 WORKDIR /app
 
