@@ -1,6 +1,6 @@
 from math import sqrt
 from typing import List
-from src.calculator.models.location import Location
+from .models.location import Location
 
 
 def calculate_distance(locations: List[Location]) -> List[float]:
