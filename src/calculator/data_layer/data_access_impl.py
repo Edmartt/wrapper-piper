@@ -1,6 +1,7 @@
 import logging
 import traceback
 import psycopg2
+import psycopg2.errors
 from typing import List
 from .data_access_interface import AccessDataInterface
 from ..models.location import Location
@@ -63,8 +64,11 @@ class PGDataAccess(AccessDataInterface):
             return locations
 
         except psycopg2.ProgrammingError:
-            logging.error(traceback.print_exc())
+            logging.exception((traceback.print_exc()))
             return [{'error': 'Internal error ocurred'}]
+        except psycopg2.errors.InvalidTextRepresentation:
+            logging.exception(traceback.print_exc())
+            return [{'error': 'uuid format invalid'}]
 
         finally:
             cursor.close()
