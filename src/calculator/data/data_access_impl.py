@@ -37,7 +37,7 @@ class PGDataAccess(AccessDataInterface):
 
         finally:
             cursor.close()
-            self.connector.close_db()\
+            self.connector.close_db()
 
 
     def get_locations(self, locations_id: List[dict]) -> List[dict]:
