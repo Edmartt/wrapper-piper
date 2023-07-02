@@ -77,7 +77,7 @@ cd wrapper-piper/
 ```
 
 
-#### Development Version with Flask
+### Development Version with Flask
 
 1. Create a virtual environment
 
@@ -103,12 +103,12 @@ pip3 install -r requirements
 flask run -p <port>
 ```
 
-##### Note
+#### Note
 
 We need to run with custom ports because this is the microservice that process the ids stored
 by another service that we'll have running in a default port (or maybe a custom one)
 
-#### Running with Docker
+### Running with Docker
 
 1. Pull the image from Dockerhub
 
@@ -128,7 +128,7 @@ If we try to send requests to this service when is running alone with docker, we
 
 
 
-#### Deploying all the services with Docker Compose
+### Deploying all the services with Docker Compose
 
 1. set a .env file following the env.example
 2. Run the following command
@@ -145,7 +145,10 @@ the wrapper-piper service will be forwarded to the port 5700, this can be change
 This will deploy the service for saving locations, this service, a redis server, a postgres server and a worker for the process.
 
 
-#### Making requests to the services deployed
+
+
+
+### Making requests to the services deployed
 
 We can use for this purpose clients like POSTMAN or INSOMNIA, for this case I'll use curl:
 
@@ -153,7 +156,7 @@ We can use for this purpose clients like POSTMAN or INSOMNIA, for this case I'll
 curl -i -H "Content-Type: application/json" -d '{"ids":["896a3a26-61ea-4973-944f-31bf29cbf87a","d6de73e3-df1a-4ccf-bfa5-fff98fbf2e18"]}' http://localhost:5000/api/v1/locations/ids
 ```
 
-##### Note
+#### Note
 
 Remember that you'll get those ids from the [locstorager service](https://github.com/Edmartt/locstorager)
 
