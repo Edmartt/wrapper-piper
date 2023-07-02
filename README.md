@@ -168,7 +168,7 @@ Returns the ID of the location saved.
 
 * **Success Response:**
 
-  * **Code:** 200 <br />
+  * **Code:** 201 CREATED <br />
     **Content:** `{"location_id": "384a1f7a-466f-444d-b9f5-c372efd8c644"}`
 
 * **Error Response:**
@@ -191,7 +191,7 @@ Return all existant locations in the database.
 
 * **Success Response:**
 
-  * **Code:** 200 <br />
+  * **Code:** 200 OK <br />
     **Content:** `{
     "locations": [
 		{
@@ -229,7 +229,7 @@ Return all existant locations in the database.
 
 * **Success Response:**
 
-  * **Code:** 200 <br />
+  * **Code:** 200 OK <br />
     **Content:** `{ "location": {
 		"id": "522bbd28-9118-4c8d-9fa1-effddbf5aacf",
 		"latitude": 12.3467,
@@ -242,6 +242,70 @@ Return all existant locations in the database.
   * **Code:** 404 NOT FOUND <br />
     **Content:** `{ "response": "location not found" }`
 
+
+
+#### Note
+
+the locstorager service will be forwarded to the port 5600, this can be changed in the docker-compose file
+
+
+
+#### Making requests to the locstorager deployed with docker-compose
+
+We can use for this purpose clients like POSTMAN or INSOMNIA, for this case I'll use curl:
+
+```
+curl -i -H "Content-Type: application/json" -d '{"name":"location4", "longitude":11.4, "latitude":5.456}' http://localhost:5600/api/v1/locations
+```
+
+
+A success response will look like this:
+
+```
+HTTP/1.1 201 CREATED
+Server: Werkzeug/2.3.6 Python/3.11.3
+Date: Sun, 02 Jul 2023 19:11:56 GMT
+Content-Type: application/json
+Content-Length: 120
+Connection: close
+
+{
+	"location_id": "384a1f7a-466f-444d-b9f5-c372efd8c644"
+}
+```
+
+
+Now for getting a single location we can send the following request:
+
+```
+curl -i -H "Content-Type: application/json" 'http://localhost:5600/api/v1/locations/5d39b607-8d83-4806-ad7f-0eaf55a5d3dd?='
+```
+
+A success response will look like this:
+
+```
+HTTP/1.1 200 OK
+Server: Werkzeug/2.3.6 Python/3.11.3
+Date: Sun, 02 Jul 2023 23:12:48 GMT
+Content-Type: application/json
+Content-Length: 154
+Connection: close
+
+{
+  "location": {
+    "id": "5d39b607-8d83-4806-ad7f-0eaf55a5d3dd",
+    "latitude": 12.3467,
+    "longitude": 9.12678,
+    "name": "st mary avenue"
+  }
+}
+```
+    
+For getting all the locations:
+
+```
+curl -i -H "Content-Type: application/json" http://localhost:5600/api/v1/locations
+```
 
 
 ## Wrapper-Piper Service
@@ -295,7 +359,7 @@ This will deploy the service for saving locations, this service, a redis server,
 
 
 
-### Making requests to the services deployed
+#### Making requests to the wrapper-piper service deployed with docker-compose
 
 We can use for this purpose clients like POSTMAN or INSOMNIA, for this case I'll use curl:
 
