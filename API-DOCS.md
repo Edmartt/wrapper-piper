@@ -41,6 +41,7 @@ For now, just save one location for each request, please
     **Content:** `"response": "location not found"`
 
 <br />
+
 #### Get Locations:
 
 Return all existant locations in the database.
@@ -74,7 +75,8 @@ Return all existant locations in the database.
 
 
 <br />
-#### **Get Location**
+
+#### Get Location
 
   Returns a json with the requested location.
 
@@ -117,7 +119,9 @@ the locstorager service will be forwarded to the port 5600, this can be changed 
 
 
 <br />
+
 #### Making requests to the locstorager deployed with docker-compose
+--------------------------------------------------------------------
 
 We can use for this purpose clients like POSTMAN or INSOMNIA, for this case I'll use curl:
 
@@ -176,6 +180,7 @@ curl -i -H "Content-Type: application/json" http://localhost:5600/api/v1/locatio
 
 
 <br/>
+
 ## Wrapper-Piper Service
 
 
@@ -225,7 +230,9 @@ This will deploy the service for saving locations, this service, a redis server,
 
 
 <br />
+
 #### Making requests to the wrapper-piper service deployed with docker-compose
+------------------------------------------------------------------------------
 
 We can use for this purpose clients like POSTMAN or INSOMNIA, for this case I'll use curl:
 
