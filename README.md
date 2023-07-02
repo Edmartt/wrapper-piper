@@ -65,7 +65,7 @@ I have left one package out of the main code structure, which is the database ac
 API Documentation
 -----------------------
 
-### Locstorager
+## Locstorager Service
 
 #### SAVE LOCATIONS
 
@@ -100,7 +100,7 @@ Returns the ID of the location saved.
     **Content:** `"response": "location not found"`
 
 
-### Get Locations:
+#### Get Locations:
 
 Return all existant locations in the database.
 
@@ -131,8 +131,8 @@ Return all existant locations in the database.
 		}]
 }`
 
-**Get Location**
-----
+#### **Get Location**
+
   Returns a json with the requested location.
 
 * **URI**
