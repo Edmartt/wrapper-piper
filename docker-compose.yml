@@ -3,17 +3,24 @@ version: "3"
 services:
   db:
     image: "postgres:15.1"
+
     restart: always
 
     ports:
       - 7000:5432
+    
     env_file:
       - ".env"
     environment:
       PGDATA: /var/lib/postgresql/data/wrapper/
 
     volumes:
+      - pg-data:/var/lib/postgresql/data/wrapper
       - ./delivery_tables.sql:/docker-entrypoint-initdb.d/delivery_tables.sql
+
+    networks:
+      - wrapper
+
     healthcheck:
       test: ["CMD-SHELL", "pg_isready", "-d", "postgres"]
       interval: 30s
@@ -28,12 +35,40 @@ services:
     restart: always
 
     ports: 
-      - 8900:6379
+    - 8900:6379
+
+    command:
+      - /bin/sh
+      - -c
+    # - Double dollars, so that the variable is not expanded by Docker Compose
+    # - Surround by quotes, so that the shell does not split the password
+    # - The ${variable:?message} syntax causes shell to exit with a non-zero
+    #   code and print a message, when the variable is not set or empty
+      - redis-server --requirepass "$${REDIS_PASSWORD:?REDIS_PASSWORD variable is not set}"
+    volumes:
+      - pg-data:/var/lib/redis/data
+      - ./redis.conf:/usr/local/etc/redis/redis.conf
 
     env_file:
       - ".env"
-    links:
-      - db
+    networks:
+      - wrapper
+
+  worker:
+    build:
+      context: "/home/edmartt/worker"
+      dockerfile: Dockerfile
+
+    restart: always
+
+    command: sh -c "rq worker distances"
+
+    env_file:
+      - ".env"
+    depends_on:
+      - "wrapper-service"
+    networks:
+      - wrapper
 
   locations:
     image: "edmartt/locstorager"
@@ -46,17 +81,16 @@ services:
 
     command: sh -c "gunicorn -b :5000 --access-logfile - --error-logfile - run:app"
 
-    links:
-      - db
-      - redis_service
-
+    networks:
+      - wrapper
 
     restart: always
 
     depends_on:
       - "db"
 
-  wrapper:
+  wrapper-service:
+
     image: "edmartt/wrapper-piper"
 
     ports:
@@ -67,10 +101,15 @@ services:
 
     command: sh -c "gunicorn -b :5000 --access-logfile - --error-logfile - run:app"
 
-    links:
-      - db
-      - redis_service
+    networks:
+      - wrapper
     depends_on:
       - "db"
-
     restart: always
+
+networks:
+  wrapper:
+    driver: bridge
+
+volumes:
+  pg-data:
