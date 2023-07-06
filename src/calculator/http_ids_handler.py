@@ -2,9 +2,13 @@ from flask import current_app, jsonify, request
 from flask.views import MethodView
 from src.calculator.data_layer.data_access_interface import AccessDataInterface
 from src.calculator.task import send_to_thread
+from src.calculator.utils.auth import is_authorized
 from src.database.redis_mod import RedisConnection
+from .wrapper_errors.errors import not_authorized, bad_request
 
 class DistanceCalculator(MethodView):
+
+    decorators = [is_authorized]
 
     def __init__(self, data_access: AccessDataInterface) -> None:
         self.data_access = data_access
