@@ -1,10 +1,13 @@
 from flask import jsonify, request
 from flask.views import MethodView
+
+from src.calculator.utils.auth import is_authorized
 from .job_results import get_job_result
 
 
 class Job(MethodView):
 
+    decorators = [is_authorized]
     def __init__(self) -> None:
         pass
 
