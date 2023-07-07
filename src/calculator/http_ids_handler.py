@@ -25,9 +25,6 @@ class DistanceCalculator(MethodView):
             return jsonify({'response': 'please send two elements at once'}), 400
         existant_ids = self.data_access.get_locations(ids)
 
-        if len(existant_ids) == 0:
-            return jsonify({'response': 'ids not found in database'}), 404
-
         if len(existant_ids) < 2:
             return jsonify({'response': 'some of the ids does not exists'}), 400
 
