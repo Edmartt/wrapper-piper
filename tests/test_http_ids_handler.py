@@ -1,6 +1,7 @@
-from typing import Any, Dict, List
+from typing import Dict, List
 from flask import Flask, request
 import pytest
+from unittest.mock import patch
 from src.calculator.data_layer.data_access_interface import AccessDataInterface
 
 from src.calculator.http_ids_handler import DistanceCalculator
@@ -24,21 +25,17 @@ class MockDataAccess(AccessDataInterface):
          (['101','102', '103', '104'], 2)
          ]
         )
-
-def test_http_post_len_is_not_2(ids_list: Dict[str, List[str]], expected_response: int):
-    with app.test_request_context(json=ids_list):
-        request_data = request.get_json()
-        assert len(request_data) != expected_response
-
-def test_http_len_ids_not_two():
+def test_http_len_ids_not_two(ids_list: Dict[str, List[str]], expected_response: int):
 
     mock_data_access = MockDataAccess()
     calc = DistanceCalculator(mock_data_access)
 
-    with app.test_request_context(json={'ids': ['123']}):
+    with app.test_request_context(json={'ids': ids_list}):
+        request_data = request.get_json()
         response_message = calc.post()[0].get_json()
         response_code = calc.post()[1]
         
+        assert len(request_data) != expected_response
         assert response_message == {'response': 'please send two elements at once'}
         assert response_code == 400
 
